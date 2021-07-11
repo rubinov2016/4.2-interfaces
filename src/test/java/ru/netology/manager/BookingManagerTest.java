@@ -3,6 +3,7 @@ package ru.netology.manager;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import ru.netology.domain.Booking;
+import ru.netology.domain.SortByPriceAsc;
 import ru.netology.repository.BookingRepository;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
@@ -21,7 +22,7 @@ public class BookingManagerTest {
         manager.save(bookingLed);
         manager.save(bookingLed3);
         Booking[] expected = new Booking[]{bookingLed,bookingLed2,bookingLed3};
-        Booking[] actual = manager.findAll("LED","MSK");
+        Booking[] actual = manager.findAll("LED","MSK",new SortByPriceAsc());
         assertArrayEquals(expected, actual);
     }
     @Test
@@ -30,7 +31,7 @@ public class BookingManagerTest {
         manager.save(bookingLed2);
         manager.removeById(bookingLed.getId());
         Booking[] expected = new Booking[]{bookingLed2};
-        Booking[] actual = manager.findAll("LED","MSK");
+        Booking[] actual = manager.findAll("LED","MSK",new SortByPriceAsc());
         assertArrayEquals(expected, actual);
     }
     @Test
@@ -43,11 +44,11 @@ public class BookingManagerTest {
     @Test
     public void shouldFindAllNotExist() {
         manager.save(bookingLed);
-        Booking[] actual = manager.findAll("MSK","MSK");
+        Booking[] actual = manager.findAll("MSK","MSK",new SortByPriceAsc());
         assertArrayEquals(null, actual);
-        actual = manager.findAll("LED","LED");
+        actual = manager.findAll("LED","LED",new SortByPriceAsc());
         assertArrayEquals(null, actual);
-        actual = manager.findAll("FRU","FRU");
+        actual = manager.findAll("FRU","FRU",new SortByPriceAsc());
         assertArrayEquals(null, actual);
     }
     @Test
@@ -55,7 +56,7 @@ public class BookingManagerTest {
         manager.save(bookingLed);
         manager.save(bookingFru);
         Booking[] expected = new Booking[]{bookingLed};
-        Booking[] actual = manager.findAll("LED","MSK");
+        Booking[] actual = manager.findAll("LED","MSK",new SortByPriceAsc());
         assertArrayEquals(expected, actual);
     }
 }

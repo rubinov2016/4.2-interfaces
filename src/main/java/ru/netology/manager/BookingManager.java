@@ -3,9 +3,12 @@ package ru.netology.manager;
 
 
 import ru.netology.domain.Booking;
+import ru.netology.domain.SortByPriceAsc;
 import ru.netology.repository.BookingRepository;
 
 import java.util.Arrays;
+import java.util.Collections;
+import java.util.Comparator;
 
 public class BookingManager {
     private BookingRepository repository;
@@ -27,7 +30,7 @@ public class BookingManager {
         repository.removeById(id);
     }
 
-    public Booking[] findAll(String from, String to) {
+    public Booking[] findAll(String from, String to, Comparator<Booking> comparator) {
         Booking[] items = repository.findAll();
         //TODO check on null
         Booking[] foundItems = new Booking[0];
@@ -42,7 +45,7 @@ public class BookingManager {
             }
         }
         if (foundItems.length > 0) {
-            Arrays.sort(foundItems);
+            Arrays.sort(foundItems, new SortByPriceAsc());
             return foundItems;
         } else {
             return null;
