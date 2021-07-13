@@ -32,7 +32,6 @@ public class BookingManager {
 
     public Booking[] findAll(String from, String to, Comparator<Booking> comparator) {
         Booking[] items = repository.findAll();
-        //TODO check on null
         Booking[] foundItems = new Booking[0];
         for (Booking item : items) {
             if ((item.getFrom() == from) && (item.getTo() == to)) {
@@ -45,11 +44,8 @@ public class BookingManager {
             }
         }
         if (foundItems.length > 0) {
-            Arrays.sort(foundItems, new SortByPriceAsc());
-            return foundItems;
-        } else {
-            return null;
+            Arrays.sort(foundItems, comparator);
         }
+        return foundItems;
     }
-
 }
